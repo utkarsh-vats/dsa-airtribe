@@ -21,7 +21,7 @@ class SortingAlgo {
         }
     }
 
-    public static int[] mergeSort(int[] arr1, int[] arr2) {
+    public static int[] merge2Sorted(int[] arr1, int[] arr2) {
         int n = arr1.length;
         int m = arr2.length;
         int[] ans = new int[n + m];
@@ -51,12 +51,84 @@ class SortingAlgo {
         return ans;
     }
 
+    public static int[] mergeSortHelper(int[] arr, int s, int e) {
+        if (s == e) {
+            int[] baseCase = new int[1];
+            baseCase[0] = arr[s];
+            return baseCase;
+        }
+
+        int mid = (s + e) / 2;
+        int[] leftSorted = mergeSortHelper(arr, s, mid);
+        int[] rightSorted = mergeSortHelper(arr, mid + 1, e);
+        return merge2Sorted(leftSorted, rightSorted);
+    }
+
+    public static int[] mergeSort(int[] arr) {
+        return mergeSortHelper(arr, 0, arr.length - 1);
+    }
+
+    // ************* MERGE SORT END *****************
+
+    // ************* QUICK SORT START *****************
+    /*
+     * [0, 1, 0, 1, 0, 0, 1, 1, 0]
+     * i = 0
+     * j = 0
+     * 
+     * Pseudo Code for Quick Sort:
+     * if (arr[i] == 0) {
+     * * swap(i, j)
+     * * i++
+     * * j++
+     * } else {
+     * * i++
+     * }
+     */
+    public void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public int partition(int[] arr, int s, int e, int pivot) {
+        int i = s;
+        int j = s;
+        while (i <= e) {
+            if (arr[i] <= pivot) {
+                swap(arr, i, j);
+                i++;
+                j++;
+            } else {
+                i++;
+            }
+        }
+        return j - 1;
+    }
+
+    public void quickSortHelper(int[] arr, int s, int e) {
+        if (s > e) {
+            return;
+        }
+        int partitionIdx = partition(arr, s, e, arr[e]);
+        quickSortHelper(arr, s, partitionIdx - 1);
+        quickSortHelper(arr, partitionIdx + 1, e);
+    }
+
+    public int[] quickSort(int[] arr) {
+        quickSortHelper(arr, 0, arr.length - 1);
+        return arr;
+    }
+
+    // ************* QUICK SORT END *****************
+
     public static void main(String[] args) {
         int[] arr1 = { 1, 3, 7, 9 };
         int[] arr2 = { 2, 4, 6, 8 };
-        int[] ans = SortingAlgo.mergeSort(arr1, arr2);
+        int[] arr = { 5, 9, 8, 2, 1 };
+        int[] ans = SortingAlgo.merge2Sorted(arr1, arr2);
         System.out.println(Arrays.toString(ans));
+        System.out.println(Arrays.toString(SortingAlgo.mergeSort(arr)));
 
     }
-
 }

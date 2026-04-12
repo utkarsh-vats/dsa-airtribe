@@ -17,25 +17,25 @@ public class BinarySearchOnAnswer {
          * Logic: This function determines if a ship with capacity 'm' can transport all
          * packages within the given 'days' by greedily filling the ship each day.
          */
-        int daysNeeded = 1;
-        int currentLoad = 0;
-        int maxDays = 5; // This should ideally be passed as a parameter or accessible via scope
-
+        int d = 1;
+        int load = 0;
         for (int weight : weights) {
-            if (currentLoad + weight > m) {
-                daysNeeded++;
-                currentLoad = weight;
+            if (load + weight > m) {
+                d++;
+                load = weight;
             } else {
-                currentLoad += weight;
+                load += weight;
             }
         }
-        return daysNeeded <= maxDays;
-
+        return d <= weights.length;
     }
 
     public int shipWithDays(int[] weights, int days) {
         int left = 0;
         int right = 0;
+        for (int w : weights) {
+            right = Math.max(right, w);
+        }
 
         while (left < right) {
             int mid = (left + right) / 2;
