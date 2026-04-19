@@ -21,7 +21,7 @@ class SortingAlgo {
         }
     }
 
-    public static int[] merge2Sorted(int[] arr1, int[] arr2) {
+    public static int[] merge2Sorted(int[] arr1, int[] arr2, int count) {
         int n = arr1.length;
         int m = arr2.length;
         int[] ans = new int[n + m];
@@ -32,6 +32,7 @@ class SortingAlgo {
             if (arr1[i] > arr2[j]) {
                 ans[k] = arr2[j];
                 j++;
+                count++;
             } else {
                 ans[k] = arr1[i];
                 i++;
@@ -51,21 +52,20 @@ class SortingAlgo {
         return ans;
     }
 
-    public static int[] mergeSortHelper(int[] arr, int s, int e) {
+    public static int[] mergeSortHelper(int[] arr, int s, int e, int count) {
         if (s == e) {
             int[] baseCase = new int[1];
             baseCase[0] = arr[s];
             return baseCase;
         }
-
         int mid = (s + e) / 2;
-        int[] leftSorted = mergeSortHelper(arr, s, mid);
-        int[] rightSorted = mergeSortHelper(arr, mid + 1, e);
-        return merge2Sorted(leftSorted, rightSorted);
+        int[] leftSorted = mergeSortHelper(arr, s, mid, count);
+        int[] rightSorted = mergeSortHelper(arr, mid + 1, e, count);
+        return merge2Sorted(leftSorted, rightSorted, count);
     }
 
     public static int[] mergeSort(int[] arr) {
-        return mergeSortHelper(arr, 0, arr.length - 1);
+        return mergeSortHelper(arr, 0, arr.length - 1, 0);
     }
 
     // ************* MERGE SORT END *****************
@@ -115,20 +115,63 @@ class SortingAlgo {
         quickSortHelper(arr, partitionIdx + 1, e);
     }
 
-    public int[] quickSort(int[] arr) {
+    public void quickSort(int[] arr) {
         quickSortHelper(arr, 0, arr.length - 1);
-        return arr;
     }
 
     // ************* QUICK SORT END *****************
+
+    // ************* INSERTION SORT START ***************
+    public static void insertionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            arr[j + 1] = key;
+        }
+    }
+
+    // ************* INSERTION SORT END *****************
+
+    public static int inversionCount(int[] arr) {
+        int count = 0;
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+                count++;
+            }
+            arr[j + 1] = key;
+        }
+        return count;
+    }
+
+    public static int inversionCountUsingMergeSort(int[] arr, int s, int e) {
+        int count = 0;
+        mergeSortHelper(arr, s, e, count);
+        return count;
+    }
 
     public static void main(String[] args) {
         int[] arr1 = { 1, 3, 7, 9 };
         int[] arr2 = { 2, 4, 6, 8 };
         int[] arr = { 5, 9, 8, 2, 1 };
-        int[] ans = SortingAlgo.merge2Sorted(arr1, arr2);
+        int[] arr3 = { 2, 4, 1, 3, 5 };
+
+        int[] ans = SortingAlgo.merge2Sorted(arr1, arr2, 0);
         System.out.println(Arrays.toString(ans));
         System.out.println(Arrays.toString(SortingAlgo.mergeSort(arr)));
+        SortingAlgo.insertionSort(arr);
+        System.out.println(Arrays.toString(arr));
 
+        System.out.println(SortingAlgo.inversionCount(arr3));
+        System.out.println(SortingAlgo.inversionCountUsingMergeSort(arr3, 0, arr3.length - 1));
     }
 }
