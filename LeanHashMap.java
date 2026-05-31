@@ -176,7 +176,7 @@ public class LeanHashMap {
         int element;
         int frequency;
 
-        KeyFrequencyObject(int eyement, int frequency) {
+        KeyFrequencyObject(int element, int frequency) {
             this.element = element;
             this.frequency = frequency;
         }
