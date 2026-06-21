@@ -47,9 +47,10 @@ public class BinarySearch {
     }
 
     // question 1.
-    // provide array is sorted
     // find the lowest possible index of the key in the array
+    // https://www.geeksforgeeks.org/problems/first-and-last-occurrences-of-x3116/1
     public int firstOccuranceBinarySearch(int[] arr, int key) {
+
         // ______ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
         // arr = [1, 1, 1, 1, 1, 2, 3, 3, 4, 4]
         // _______s_____m____________________e
@@ -115,7 +116,9 @@ public class BinarySearch {
     }
 
     // question 3.
+    // https://www.geeksforgeeks.org/problems/count-occurences-of-a-number5240/1
     public int countOccuranceBinarySearch(int[] arr, int key) {
+
         int firstIdx = firstOccuranceBinarySearch(arr, key);
         if (firstIdx < 0)
             return 0;
@@ -124,7 +127,9 @@ public class BinarySearch {
     }
 
     // question 4.
+    // https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
     public int[] searchRange(int[] nums, int target) {
+
         int firstIdx = firstOccuranceBinarySearch(nums, target);
         if (firstIdx < 0)
             return new int[] { -1, -1 };
@@ -133,10 +138,13 @@ public class BinarySearch {
     }
 
     // question 5.
+    // https://leetcode.com/problems/search-in-rotated-sorted-array/
     // ******
 
     // question 6.
+    // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
     public int minimumElementInRSA(int[] arr) {
+
         int s = 0;
         int e = arr.length - 1;
         while (s < e) {
@@ -154,10 +162,13 @@ public class BinarySearch {
     }
 
     // question 7.
+    // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/
     // ******
 
     // question 8.
+    // https://www.geeksforgeeks.org/problems/rotation4723/1
     public int numberOfRotationInRSA(int[] arr) {
+
         int s = 0;
         int e = arr.length - 1;
         while (s < e) {
@@ -184,7 +195,9 @@ public class BinarySearch {
     // }
 
     // question 10.
+    // https://leetcode.com/problems/koko-eating-bananas/
     public boolean possible(int[] arr, int hr, int speed) {
+
         int hrUsed = 0;
         for (int x : arr) {
             hrUsed += Math.ceil((double) x / speed);
