@@ -2,7 +2,9 @@ import java.util.Arrays;
 
 public class Greedy {
     // leetcode meeting rooms I
+    // https://leetcode.com/problems/meeting-rooms/
     public boolean meeting_rooms_1(int[][] meetings) {
+
         Arrays.sort(meetings, (a, b) -> a[0] - b[0]);
 
         for (int i = 1; i < meetings.length; i++) {
@@ -17,6 +19,7 @@ public class Greedy {
     }
 
     // leetcode meeting rooms II
+    // https://leetcode.com/problems/meeting-rooms-ii/
     public int meeting_rooms_2(int[] st, int[] et) {
 
         Arrays.sort(st);
@@ -42,7 +45,9 @@ public class Greedy {
         return max_rooms_used;
     }
 
+    // https://leetcode.com/problems/jump-game/
     public boolean canJump(int[] arr) {
+
         int maxReach = 0;
         for (int i = 0; i < arr.length; i++) {
             if (maxReach < i) {
@@ -56,7 +61,37 @@ public class Greedy {
         return true;
     }
 
-    // leetcode
+    // leetcode 134. Gas Station
+    // https://leetcode.com/problems/gas-station/
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int totalGas = 0;
+        int totalDistance = 0;
+
+        for (int i : gas) {
+            totalGas += i;
+        }
+
+        for (int i : cost) {
+            totalDistance += i;
+        }
+
+        if (totalDistance > totalGas)
+            return -1;
+
+        int fuel = 0;
+        int ans = 0;
+
+        for (int i = 0; i < gas.length; i++) {
+            int delta = gas[i] - cost[i];
+            fuel += delta;
+
+            if (fuel < 0) {
+                ans = i + 1;
+                fuel = 0;
+            }
+        }
+        return ans;
+    }
 
     public static void main(String[] args) {
         Greedy greedy = new Greedy();
